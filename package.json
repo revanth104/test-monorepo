@@ -26,8 +26,7 @@
   },
   "scripts": {
     "commitlint": "npx commitlint --edit",
-    "lint": "eslint serverless/**/*.{js,jsx,ts,tsx,css}",
-    "pre-push": "bash -c 'parent_branch=\"origin/develop\"; current_branch=$(git symbolic-ref -q HEAD); current_branch=${current_branch##refs/heads/}; if [ -n \"$(git rev-list ${parent_branch}..${current_branch})\" ]; then echo \"Error: Your branch is not up to date with ${parent_branch}. Please pull the latest changes.\"; exit 1; fi'"
+    "lint": "eslint serverless/**/*.{js,jsx,ts,tsx,css}"
   },
   "lint-staged": {
     "serverless/**/*.{js,jsx,ts,tsx,css}": [

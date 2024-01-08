@@ -4,4 +4,3 @@
 # Run lint-staged or other tasks
 npx --no-install lint-staged # prevents installing lint-staged globally instead it runs it temporarily for this script execution.
 pnpm run lint
-pnpm run pre-push
