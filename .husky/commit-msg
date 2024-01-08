@@ -1,26 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# Get the current branch name
-CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
-
-# Get the branch from which the new branch was created
-PARENT_BRANCH=$(git rev-parse --symbolic-full-name "$CURRENT_BRANCH@{-1}")
-
-# Update the local repository to make sure it's up to date
-git fetch origin
-
-# Check if the new branch is up to date with its parent branch
-if [ "$CURRENT_BRANCH" != "develop" ]; then
-  git merge-base --is-ancestor "$PARENT_BRANCH" "$CURRENT_BRANCH"
-  IS_UP_TO_DATE=$?
-
-  if [ $IS_UP_TO_DATE -ne 0 ]; then
-    echo "Error: Your branch is not up to date with its parent branch ($PARENT_BRANCH)."
-    echo "Please merge the latest changes from $PARENT_BRANCH before committing."
-    exit 1
-  fi
-fi
-
-# Continue with CommitLint
-npx --no-install commitlint --edit "$1"
+npx --no-install commitlint --edit "$1" # prevents installing commitlint globally instead it runs it temporarily for this script execution.
