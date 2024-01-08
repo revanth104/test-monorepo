@@ -1,6 +1,6 @@
 console.log("testing mono-repo");
 
-const title = "revanth kumareddy yanamala";
+const title = "yanamala";
 const title2 = "revanth";
 const testing = () => {
   console.log(title);
