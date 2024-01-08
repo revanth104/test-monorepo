@@ -1,9 +1,8 @@
 console.log("testing mono-repo");
 
-const name = "revanth";
+const title = "revanth";
 
 const testing = () => {
-  console.log(name);
+  console.log(title);
 };
-
 testing();
