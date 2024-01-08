@@ -1,5 +1,22 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# Function to check if the current branch is up to date
+function is_branch_up_to_date() {
+    current_branch=$(git symbolic-ref -q HEAD)
+    current_branch=${current_branch##refs/heads/}
+
+    parent_branch="develop"  # Change this to the name of your parent branch
+
+    if [ -n "$(git rev-list ${parent_branch}..${current_branch})" ]; then
+        echo "Error: Your branch is not up to date with ${parent_branch}. Please pull the latest changes."
+        exit 1
+    fi
+}
+
+# Check if the branch is up to date before running lint-staged
+is_branch_up_to_date
+
+# Run lint-staged or other tasks
 npx --no-install lint-staged # prevents installing lint-staged globally instead it runs it temporarily for this script execution.
 pnpm run lint
