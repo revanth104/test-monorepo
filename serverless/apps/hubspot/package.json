@@ -22,5 +22,8 @@
   },
   "scripts": {
     "test": "node ./__tests__/hubspot.test.js"
+  },
+  "dependencies": {
+    "hubspot": "link:"
   }
 }
