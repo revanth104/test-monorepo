@@ -14,10 +14,24 @@
   "devDependencies": {
     "@commitlint/cli": "^18.4.4",
     "@commitlint/config-conventional": "^18.4.4",
+    "@typescript-eslint/eslint-plugin": "^6.18.0",
+    "@typescript-eslint/parser": "^6.18.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
     "husky": "^8.0.3",
-    "lerna": "^8.0.1"
+    "lerna": "^8.0.1",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3"
   },
   "scripts": {
-    "commitlint": "npx commitlint --edit"
+    "commitlint": "npx commitlint --edit",
+    "lint": "eslint serverless/**/*.{js,jsx,ts,tsx,css}"
+  },
+  "lint-staged": {
+    "serverless/**/*.{js,jsx,ts,tsx,css}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   }
 }
