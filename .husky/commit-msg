@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx --no-install commitlint --edit "$1"
+npx --no-install commitlint --edit "$1" # prevents installing commitlint globally instead it runs it temporarily for this script execution.
