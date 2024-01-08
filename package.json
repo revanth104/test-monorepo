@@ -1,0 +1,23 @@
+{
+  "name": "pm-apps-test",
+  "version": "1.0.0",
+  "publishConfig": {
+    "@krishnavcloudify99:registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "url": "https://github.com/krishnavcloudify99/pm-apps-test.git"
+  },
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.4",
+    "@commitlint/config-conventional": "^18.4.4",
+    "husky": "^8.0.3",
+    "lerna": "^8.0.1"
+  },
+  "scripts": {
+    "commitlint": "npx commitlint --edit"
+  }
+}
