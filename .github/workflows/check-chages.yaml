@@ -18,13 +18,13 @@ jobs:
         run: |
           CHANGES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'CHANGELOG.md' || true)
           if [ -z "$CHANGES" ]; then
-            echo "::set-output name=changelog_created::false"
+            echo "changelog_created=false" >> $GITHUB_ENV
           else
-            echo "::set-output name=changelog_created::true"
+            echo "changelog_created=true" >> $GITHUB_ENV
           fi
 
       - name: Comment on Pull Request
-        if: steps.check-changelog.outputs.changelog_created == 'false'
+        if: env.changelog_created == 'false'
         uses: actions/github-script@v6
         with:
           script: |
