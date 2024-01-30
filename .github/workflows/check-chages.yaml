@@ -1,0 +1,36 @@
+name: Check Changelog
+
+on:
+  pull_request:
+    paths:
+      - "**/CHANGELOG.md"
+
+jobs:
+  check-changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check Changelog
+        id: check-changelog
+        run: |
+          CHANGES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'CHANGELOG.md' || true)
+          if [ -z "$CHANGES" ]; then
+            echo "::set-output name=changelog_created::false"
+          else
+            echo "::set-output name=changelog_created::true"
+          fi
+
+      - name: Comment on Pull Request
+        if: steps.check-changelog.outputs.changelog_created == 'false'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '⚠️ Please make sure to update the CHANGELOG.md file for this pull request.'
+            })
