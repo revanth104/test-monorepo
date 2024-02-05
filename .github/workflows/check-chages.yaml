@@ -26,14 +26,3 @@ jobs:
       - name: Comment on Pull Request
         if: env.changelog_created == 'false'
         uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const { context, github } = require('@actions/github');
-
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '⚠️ Please make sure to update the CHANGELOG.md file for this pull request.'
-            });
