@@ -7,14 +7,16 @@ echo staged_files: $staged_files
 # Define the allowed folders and files
 allowed_folders=("serverless")
 allowed_files=("pnpm-workspace.yaml")
+files=(".husky/pre-commit")
 
 # Check if any staged files are not in the allowed folders or files
-# for file in $staged_files; do
-#     if [ "$file" != "$allowed_file" ] || [[ ! "$file" =~ ^"$allowed_folder/" ]]; then
-#         echo "Error: You can only commit changes from the '$allowed_folders' folder or '$allowed_files'."
-#         exit 1
-#     fi
-# done
+for file in $staged_files; do
+    if [ "$file" != "$allowed_files" ] || ! [[ "$file" =~ ^"$allowed_folders/" ]]; then
+    echo "file: $file"
+    echo "Error: You can only commit changes from the '$allowed_folders' folder or '$allowed_files'."
+    exit 0
+fi
+done
 
 # If all checks pass, run lint-staged or other tasks
 npx --no-install lint-staged # prevents installing lint-staged globally instead it runs it temporarily for this script execution.
