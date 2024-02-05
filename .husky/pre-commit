@@ -8,13 +8,21 @@ staged_files=$(git diff --staged --name-only)
 allowed_folders=("serverless")
 allowed_files=("pnpm-workspace.yaml")
 
+# Flag to track whether any disallowed files are found
+disallowed_files_found=false
+
 # Check if any staged files are not in the allowed folders or files
 for file in $staged_files; do
     if [ ! -z "$(echo "${allowed_folders[@]}" | grep -o "$file")" ] || [ ! -z "$(echo "${allowed_files[@]}" | grep -o "$file")" ]; then
         echo "Error: You can only commit changes from the 'serverless' folder or 'pnpm-workspace.yaml'."
-        exit 1
+        disallowed_files_found=true
     fi
 done
+
+# If disallowed files are found, exit without running lint-staged
+if [ "$disallowed_files_found" = true ]; then
+    exit 1
+fi
 
 # If all checks pass, run lint-staged or other tasks
 npx --no-install lint-staged # prevents installing lint-staged globally instead it runs it temporarily for this script execution.
