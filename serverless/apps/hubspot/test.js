@@ -1,7 +1,7 @@
 console.log("testing mono-repo");
 
 const title = "yanamala";
-const title2 = "revanth";
+const title2 = "revant";
 const testing = () => {
   console.log(title);
 };
