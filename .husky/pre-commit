@@ -11,10 +11,10 @@ files=(".husky/pre-commit")
 
 # Check if any staged files are not in the allowed folders or files
 for file in $staged_files; do
-    if [ "$file" != "$allowed_files" ] || ! [[ "$file" =~ ^"$allowed_folders/" ]]; then
+    if [ "$file" != "$allowed_files" ] && ! [[ "$file" =~ ^"$allowed_folders/" ]]; then
     echo "file: $file"
     echo "$(tput setaf 1)Error: You can only commit changes from the '$allowed_folders' folder or '$allowed_files'.$(tput sgr0)"
-    exit 0
+    # exit 0
 fi
 done
 
