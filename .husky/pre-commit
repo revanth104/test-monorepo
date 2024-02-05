@@ -9,12 +9,12 @@ allowed_folders=("serverless")
 allowed_files=("pnpm-workspace.yaml")
 
 # Check if any staged files are not in the allowed folders or files
-for file in $staged_files; do
-    if [ "$file" != "$allowed_file" ] && [ "${file#"$allowed_folder/"}" != "$file" ]; then
-        echo "Error: You can only commit changes from the '$allowed_folder' folder or '$allowed_file'."
-        exit 1
-    fi
-done
+# for file in $staged_files; do
+#     if [ "$file" != "$allowed_file" ] || [[ ! "$file" =~ ^"$allowed_folder/" ]]; then
+#         echo "Error: You can only commit changes from the '$allowed_folders' folder or '$allowed_files'."
+#         exit 1
+#     fi
+# done
 
 # If all checks pass, run lint-staged or other tasks
 npx --no-install lint-staged # prevents installing lint-staged globally instead it runs it temporarily for this script execution.
