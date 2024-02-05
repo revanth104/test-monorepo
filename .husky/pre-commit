@@ -1,6 +1,21 @@
-#!/bin/sh
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
-echo "Testing pre-commit hook execution"
+# Get the list of staged files
+staged_files=$(git diff --staged --name-only)
+echo staged_files: $staged_files
+# Define the allowed folders and files
+allowed_folders=("serverless")
+allowed_files=("pnpm-workspace.yaml")
 
-# If you want to prevent the commit, you can exit with a non-zero status code
-# exit 1
+# Check if any staged files are not in the allowed folders or files
+for file in $staged_files; do
+    if [ ! -z "$(echo "${allowed_folders[@]}" | grep -o "$file")" ] || [ ! -z "$(echo "${allowed_files[@]}" | grep -o "$file")" ]; then
+        echo "Error: You can only commit changes from the 'serverless' folder or 'pnpm-workspace.yaml'."
+        exit 1
+    fi
+done
+
+# If all checks pass, run lint-staged or other tasks
+npx --no-install lint-staged # prevents installing lint-staged globally instead it runs it temporarily for this script execution.
+pnpm run lint
