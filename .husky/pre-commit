@@ -10,8 +10,8 @@ allowed_files=("pnpm-workspace.yaml")
 
 # Check if any staged files are not in the allowed folders or files
 for file in $staged_files; do
-    if [ ! -z "$(echo "${allowed_folders[@]}" | grep -o "$file")" ] || [ ! -z "$(echo "${allowed_files[@]}" | grep -o "$file")" ]; then
-        echo "Error: You can only commit changes from the 'serverless' folder or 'pnpm-workspace.yaml'."
+    if [ "$file" != "$allowed_file" ] && [ "${file#"$allowed_folder/"}" != "$file" ]; then
+        echo "Error: You can only commit changes from the '$allowed_folder' folder or '$allowed_file'."
         exit 1
     fi
 done
