@@ -1,23 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# Get the current branch name
-CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
-
-# Update the local repository to make sure it's up to date
-git fetch origin
-
-# Check if the current branch is up to date with the develop branch
-if [ "$CURRENT_BRANCH" != "develop" ]; then
-  git merge-base --is-ancestor develop "$CURRENT_BRANCH"
-  IS_UP_TO_DATE=$?
-
-  if [ $IS_UP_TO_DATE -ne 0 ]; then
-    echo "Error: Your branch is not up to date with the develop branch."
-    echo "Please merge the latest changes from develop before committing."
-    exit 1
-  fi
-fi
-
-# Continue with CommitLint
-npx --no-install commitlint --edit "$1"
+npx --no-install commitlint --edit "$1" # prevents installing commitlint globally instead it runs it temporarily for this script execution.

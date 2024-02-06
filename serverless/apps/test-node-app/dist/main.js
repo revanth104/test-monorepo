@@ -1,1 +1,4 @@
-(()=>{"use strict";console.log("Hellow world from module")})();
+(() => {
+  "use strict";
+  console.log("Hellow world from");
+})();

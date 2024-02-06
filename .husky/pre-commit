@@ -1,5 +1,24 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# Get the list of staged files
+staged_files=$(git diff --staged --name-only)
+echo staged_files: $staged_files
+# Define the allowed folders and files
+allowed_folders=("serverless")
+allowed_files=("pnpm-workspace.yaml")
+
+# Check if any staged files are not in the allowed folders or files
+for file in $staged_files; do
+    if [ "$file" != "$allowed_files" ] && ! [[ "$file" =~ ^"$allowed_folders/" ]]; then
+    echo "file: $file"
+    echo "$(tput setaf 1)Error: You can only commit changes from the '$allowed_folders' folder or '$allowed_files'.$(tput sgr0)"
+    exit 1
+fi
+done
+
+git pull origin main
+
+# If all checks pass, run lint-staged or other tasks
 npx --no-install lint-staged # prevents installing lint-staged globally instead it runs it temporarily for this script execution.
 pnpm run lint
