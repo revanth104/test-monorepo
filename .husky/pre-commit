@@ -7,7 +7,6 @@ echo staged_files: $staged_files
 # Define the allowed folders and files
 allowed_folders=("serverless")
 allowed_files=("pnpm-workspace.yaml")
-files=(".husky/pre-commit")
 
 # Check if any staged files are not in the allowed folders or files
 for file in $staged_files; do
@@ -17,6 +16,8 @@ for file in $staged_files; do
     exit 1
 fi
 done
+
+git pull origin main
 
 # If all checks pass, run lint-staged or other tasks
 npx --no-install lint-staged # prevents installing lint-staged globally instead it runs it temporarily for this script execution.
